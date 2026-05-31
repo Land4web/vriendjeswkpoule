@@ -65,8 +65,8 @@ export default function MainNav({ profile }: { profile: Profile | null }) {
               className={cn(
                 "text-sm px-3 py-1.5 rounded-md transition-colors",
                 pathname.startsWith(item.href)
-                  ? "bg-white/20 text-white font-medium"
-                  : "text-white/70 hover:text-white hover:bg-white/10"
+                  ? "bg-white/25 text-white font-medium"
+                  : "text-white/70 hover:text-white hover:bg-white/15"
               )}
             >
               {item.label}

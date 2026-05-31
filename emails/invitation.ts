@@ -8,10 +8,10 @@ export function invitationEmail(params: {
 }) {
   const url = `${APP_URL}/registreren?token=${params.token}`;
   const paymentBlock = params.paymentUrl ? `
-    <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 24px 28px; margin: 24px 0; text-align: center;">
-      <p style="margin: 0 0 6px; font-size: 16px; font-weight: 700; color: #92400e;">💰 Inleg betalen</p>
-      <p style="margin: 0 0 20px; font-size: 14px; color: #78350f; line-height: 1.5;">Vergeet niet de inleg te betalen om mee te doen!</p>
-      <a href="${params.paymentUrl}" style="display: inline-block; background: #f59e0b; color: white; font-weight: 700; font-size: 16px; padding: 16px 40px; border-radius: 10px; text-decoration: none; letter-spacing: 0.01em; box-shadow: 0 2px 8px rgba(245,158,11,0.35);">
+    <div style="background: #fff8e6; border: 1px solid #f5c842; border-radius: 12px; padding: 24px 28px; margin: 24px 0; text-align: center;">
+      <p style="margin: 0 0 6px; font-size: 16px; font-weight: 700; color: #1c2a3a;">💰 Inleg betalen</p>
+      <p style="margin: 0 0 20px; font-size: 14px; color: #5a7090; line-height: 1.5;">Vergeet niet de inleg te betalen om mee te doen!</p>
+      <a href="${params.paymentUrl}" style="display: inline-block; background: #e8750a; color: white; font-weight: 700; font-size: 16px; padding: 16px 40px; border-radius: 10px; text-decoration: none; letter-spacing: 0.01em; box-shadow: 0 2px 8px rgba(232,117,10,0.35);">
         Inleg betalen
       </a>
     </div>` : "";
@@ -27,29 +27,29 @@ export function invitationEmail(params: {
       <p style="margin: 4px 0 0; color: #6b7280; font-size: 14px;">FIFA World Cup — VS / Canada / Mexico</p>
     </div>
 
-    <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+    <p style="color: #1c2a3a; font-size: 16px; line-height: 1.6;">
       Hey! <strong>${params.invitedByName}</strong> heeft je uitgenodigd om mee te doen aan de WK-poule.
     </p>
 
-    <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+    <p style="color: #1c2a3a; font-size: 16px; line-height: 1.6;">
       Maak je account aan en begin direct met voorspellen. Heel veel weinig succes!
     </p>
 
     <div style="text-align: center; margin: 32px 0;">
-      <a href="${url}" style="display: inline-block; background: #1e3a5f; color: white; font-weight: 700; font-size: 16px; padding: 16px 40px; border-radius: 10px; text-decoration: none; letter-spacing: 0.01em; box-shadow: 0 2px 8px rgba(30,58,95,0.35);">
+      <a href="${url}" style="display: inline-block; background: #1a3a6b; color: white; font-weight: 700; font-size: 16px; padding: 16px 40px; border-radius: 10px; text-decoration: none; letter-spacing: 0.01em; box-shadow: 0 2px 8px rgba(26,58,107,0.35);">
         Account aanmaken
       </a>
     </div>
 
     ${paymentBlock}
 
-    <p style="color: #9ca3af; font-size: 13px; line-height: 1.5;">
+    <p style="color: #8a9bb0; font-size: 13px; line-height: 1.5;">
       Of kopieer deze link in je browser:<br>
-      <a href="${url}" style="color: #1e3a5f; word-break: break-all;">${url}</a>
+      <a href="${url}" style="color: #1a3a6b; word-break: break-all;">${url}</a>
     </p>
 
-    <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;">
-    <p style="color: #9ca3af; font-size: 12px; text-align: center;">
+    <hr style="border: none; border-top: 1px solid #d0ddef; margin: 24px 0;">
+    <p style="color: #8a9bb0; font-size: 12px; text-align: center;">
       Deze uitnodiging is 7 dagen geldig. Als je dit niet verwachtte, kun je deze mail negeren.
     </p>
   </div>

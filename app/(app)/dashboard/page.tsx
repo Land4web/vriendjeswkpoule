@@ -134,7 +134,7 @@ export default async function DashboardPage() {
 
       {/* Deadline-banner */}
       {hasIncompleteTournament && !tournamentPred?.locked && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-800 p-4 flex items-start gap-3">
+        <div className="rounded-lg p-4 flex items-start gap-3" style={{background: "#fff8e6", border: "1px solid #f5c842"}}>
           <span className="text-xl">⚠️</span>
           <div>
             <p className="font-medium text-sm">Toernooivoorspelling nog niet (volledig) ingevuld</p>

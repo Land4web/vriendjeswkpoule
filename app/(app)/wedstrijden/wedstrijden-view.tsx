@@ -53,10 +53,10 @@ function MatchCard({ match, team1, team2, pred }: {
         <div className="flex flex-col items-center shrink-0 w-20">
           {isFinished || isLive ? (
             <>
-              <span className={cn("text-lg font-bold tabular-nums", isLive ? "text-yellow-300" : "text-white")}>
+              <span className={cn("text-lg font-bold tabular-nums", isLive ? "text-yellow-400" : "text-white")}>
                 {match.home_score ?? 0} – {match.away_score ?? 0}
               </span>
-              {isLive && <span className="text-xs text-yellow-300 font-medium">LIVE</span>}
+              {isLive && <span className="text-xs text-yellow-400 font-medium">LIVE</span>}
             </>
           ) : (
             <>
