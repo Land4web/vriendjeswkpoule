@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -47,10 +48,16 @@ export default async function WedstrijdDetailPage({ params }: Props) {
   const locked = isMatchLocked(match.scheduled_at, match.status);
   const isFinished = match.status === "FINISHED";
 
+  const groupLabel = match.group_name ? match.group_name.replace("GROUP_", "") : null;
+
   return (
     <div className="max-w-lg mx-auto space-y-6">
       <div>
-        <p className="text-sm text-muted-foreground">{getStageLabel(match.stage)}{match.group_name ? ` — Groep ${match.group_name}` : ""}</p>
+        <Link href="/wedstrijden" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6"/></svg>
+          Terug naar wedstrijden
+        </Link>
+        <p className="text-sm text-muted-foreground">{getStageLabel(match.stage)}{groupLabel ? ` — Groep ${groupLabel}` : ""}</p>
         <h1 className="text-xl font-bold mt-1">{formatMatchDate(match.scheduled_at)}</h1>
       </div>
 
@@ -75,9 +82,9 @@ export default async function WedstrijdDetailPage({ params }: Props) {
                 </div>
               ) : (
                 <div className="space-y-1">
-                  <Badge variant={match.status === "IN_PLAY" ? "default" : "outline"} className="text-sm">
+                  <span className="text-sm text-muted-foreground/50">
                     {getStatusLabel(match.status)}
-                  </Badge>
+                  </span>
                 </div>
               )}
             </div>
