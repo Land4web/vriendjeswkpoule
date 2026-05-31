@@ -155,4 +155,7 @@ html, body {
   html {
     @apply font-sans;
   }
+  a, button, [role="button"], [role="menuitem"] {
+    cursor: pointer;
+  }
 }
