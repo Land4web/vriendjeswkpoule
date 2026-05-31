@@ -29,15 +29,33 @@ export default async function DashboardPage() {
     .order("scheduled_at", { ascending: true })
     .limit(5);
 
-  // Team info voor komende wedstrijden
+  // Recente resultaten alvast ophalen voor team-IDs
+  const { data: recentPredictions } = await supabase
+    .from("predictions")
+    .select("match_id, home_score, away_score, points_awarded")
+    .eq("user_id", user.id)
+    .not("points_awarded", "is", null)
+    .order("updated_at", { ascending: false })
+    .limit(5);
+
+  const recentMatchIds = (recentPredictions ?? []).map((p) => p.match_id);
+  const { data: recentMatches } = await supabase
+    .from("matches")
+    .select("id, home_team_id, away_team_id, home_score, away_score, scheduled_at")
+    .in("id", recentMatchIds.length > 0 ? recentMatchIds : ["00000000-0000-0000-0000-000000000000"]);
+
+  const recentMatchMap = new Map((recentMatches ?? []).map((m) => [m.id, m]));
+
+  // Team info voor komende én recente wedstrijden
   const teamIds = [
     ...(upcomingMatches?.flatMap((m) => [m.home_team_id, m.away_team_id]) ?? []),
+    ...(recentMatches?.flatMap((m) => [m.home_team_id, m.away_team_id]) ?? []),
   ].filter(Boolean) as string[];
 
-  const { data: teamsData } = await supabase
-    .from("teams")
-    .select("id, name, short_name, flag_url")
-    .in("id", teamIds);
+  const uniqueTeamIds = [...new Set(teamIds)];
+  const { data: teamsData } = uniqueTeamIds.length > 0
+    ? await supabase.from("teams").select("id, name, short_name, flag_url").in("id", uniqueTeamIds)
+    : { data: [] };
 
   const teamsMap = new Map((teamsData ?? []).map((t) => [t.id, t]));
 
@@ -84,22 +102,6 @@ export default async function DashboardPage() {
     : { data: [] };
   const standingProfileMap = new Map((standingProfiles ?? []).map((p) => [p.id, p]));
 
-  // Recente resultaten (laatste 5 afgeronde wedstrijden met mijn voorspelling)
-  const { data: recentPredictions } = await supabase
-    .from("predictions")
-    .select("match_id, home_score, away_score, points_awarded")
-    .eq("user_id", user.id)
-    .not("points_awarded", "is", null)
-    .order("updated_at", { ascending: false })
-    .limit(5);
-
-  const recentMatchIds = (recentPredictions ?? []).map((p) => p.match_id);
-  const { data: recentMatches } = await supabase
-    .from("matches")
-    .select("id, home_team_id, away_team_id, home_score, away_score, scheduled_at")
-    .in("id", recentMatchIds);
-
-  const recentMatchMap = new Map((recentMatches ?? []).map((m) => [m.id, m]));
 
   const rankChange = standing?.previous_rank && standing?.rank
     ? standing.previous_rank - standing.rank
