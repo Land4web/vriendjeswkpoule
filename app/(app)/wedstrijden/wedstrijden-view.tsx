@@ -53,17 +53,20 @@ function MatchCard({ match, team1, team2, pred }: {
         <div className="flex flex-col items-center shrink-0 w-20">
           {isFinished || isLive ? (
             <>
-              <span className={cn("text-lg font-bold tabular-nums", isLive ? "text-yellow-500" : "text-foreground")}>
+              <span className={cn(
+                "text-lg font-bold tabular-nums px-2 py-0.5 rounded",
+                isLive ? "text-yellow-700 bg-yellow-100" : "text-white bg-green-600"
+              )}>
                 {match.home_score ?? 0} – {match.away_score ?? 0}
               </span>
-              {isLive && <span className="text-xs font-semibold text-yellow-500">LIVE</span>}
+              {isLive && <span className="text-xs font-semibold text-yellow-500 mt-0.5">LIVE</span>}
             </>
           ) : (
             <>
-              <span className="text-sm font-semibold text-foreground">
+              <span className="text-sm font-semibold text-muted-foreground/60">
                 {new Date(match.scheduled_at).toLocaleTimeString("nl-NL", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Amsterdam" })}
               </span>
-              <span className="text-xs text-muted-foreground">
+              <span className="text-xs text-muted-foreground/50">
                 {new Date(match.scheduled_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short", timeZone: "Europe/Amsterdam" })}
               </span>
             </>
@@ -121,7 +124,7 @@ export default function WedstrijdenView({ matches, teamsMap, predMap, groups }: 
               "px-3 py-1.5 rounded-full text-sm font-medium transition-colors border",
               selected === btn.key
                 ? "bg-primary text-white border-primary"
-                : "bg-background text-foreground border-border hover:bg-muted"
+                : "bg-background text-foreground border-border hover:bg-primary hover:text-white hover:border-primary"
             )}
           >
             {btn.label}
