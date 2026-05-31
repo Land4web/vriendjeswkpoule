@@ -48,7 +48,7 @@ export default function MainNav({ profile }: { profile: Profile | null }) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-primary text-primary-foreground">
+    <header className="sticky top-0 z-50 bg-primary text-primary-foreground overflow-visible">
       <div className="relative container mx-auto max-w-5xl px-4 flex h-16 items-center">
 
         {/* Links: desktop nav */}
@@ -72,11 +72,11 @@ export default function MainNav({ profile }: { profile: Profile | null }) {
         {/* Midden: logo — absoluut gecentreerd, mag overlappen */}
         <Link
           href="/dashboard"
-          className="absolute left-1/2 -translate-x-1/2 flex items-center"
-          style={{ top: "-20px" }}
+          className="absolute left-1/2 -translate-x-1/2 flex items-start"
+          style={{ top: "0" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="De vriendjes WK poule 2026" className="h-[100px] w-auto drop-shadow-lg" />
+          <img src="/logo.png" alt="De vriendjes WK poule 2026" className="h-[120px] w-auto drop-shadow-lg" />
         </Link>
 
         {/* Rechts: profiel + mobiel hamburger */}
