@@ -88,6 +88,22 @@ export default function InstellingenForm({ settings }: Props) {
           <Separator />
 
           <div className="space-y-1.5">
+            <Label htmlFor="payment_url">Betaallink (optioneel)</Label>
+            <Input
+              id="payment_url"
+              name="payment_url"
+              type="url"
+              placeholder="https://betaalverzoek.ing.nl/betaalverzoek/?id=..."
+              defaultValue={settings["payment_url"] as string ?? ""}
+            />
+            <p className="text-xs text-muted-foreground">
+              Wordt als knop meegestuurd in uitnodigingsmails. Bijv. een ING betaalverzoek of Tikkie-link.
+            </p>
+          </div>
+
+          <Separator />
+
+          <div className="space-y-1.5">
             <Label htmlFor="api_football_key">football-data.org API-sleutel</Label>
             <Input
               id="api_football_key"

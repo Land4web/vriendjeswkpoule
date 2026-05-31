@@ -34,6 +34,12 @@ export async function saveSettings(formData: FormData) {
       .eq("key", "tournament_prediction_deadline");
   }
 
+  // Betaallink
+  const paymentUrl = formData.get("payment_url") as string;
+  await supabase
+    .from("settings")
+    .upsert({ key: "payment_url", value: { value: paymentUrl?.trim() ?? "" } }, { onConflict: "key" });
+
   // API-sleutel (alleen opslaan als ingevuld)
   const apiKey = formData.get("api_football_key") as string;
   if (apiKey?.trim()) {

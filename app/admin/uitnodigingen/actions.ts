@@ -51,10 +51,19 @@ export async function createInvitation(formData: FormData) {
 
   if (insertError) return { error: "Uitnodiging aanmaken mislukt." };
 
+  const { data: paymentSetting } = await serviceSupabase
+    .from("settings")
+    .select("value")
+    .eq("key", "payment_url")
+    .maybeSingle();
+
+  const paymentUrl = (paymentSetting?.value as { value: string } | null)?.value || undefined;
+
   const emailContent = invitationEmail({
     email,
     token,
     invitedByName: profile?.full_name ?? "Beheerder",
+    paymentUrl,
   });
 
   const { error: emailError } = await getResend().emails.send({
