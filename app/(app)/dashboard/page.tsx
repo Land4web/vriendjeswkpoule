@@ -183,7 +183,7 @@ export default async function DashboardPage() {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-base flex items-center justify-between">
-            <span>📅 Komende wedstrijden</span>
+            <span>Komende wedstrijden</span>
             <Link href="/wedstrijden" className="text-sm font-normal text-primary hover:underline">
               Alle wedstrijden →
             </Link>
@@ -233,7 +233,7 @@ export default async function DashboardPage() {
       {(recentPredictions ?? []).length > 0 && (
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">🏁 Recente resultaten</CardTitle>
+            <CardTitle className="text-base">Recente resultaten</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -256,8 +256,8 @@ export default async function DashboardPage() {
                       </p>
                     </div>
                     <Badge
-                      className="shrink-0"
-                      variant={pred.points_awarded === 0 ? "outline" : "default"}
+                      className="shrink-0 text-white"
+                      variant={pred.points_awarded === 0 ? "secondary" : "default"}
                     >
                       {pred.points_awarded} pt
                     </Badge>
