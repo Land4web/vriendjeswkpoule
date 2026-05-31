@@ -126,18 +126,18 @@ export default function MainNav({ profile }: { profile: Profile | null }) {
                 <p className="text-xs text-muted-foreground">@{profile?.username}</p>
               </div>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={() => router.push("/profiel")}>
+              <DropdownMenuItem onClick={() => router.push("/profiel")}>
                 Profiel
               </DropdownMenuItem>
               {isAdmin && (
-                <DropdownMenuItem onSelect={() => router.push("/admin")}>
+                <DropdownMenuItem onClick={() => router.push("/admin")}>
                   Beheer
                 </DropdownMenuItem>
               )}
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                className="text-destructive focus:text-destructive"
-                onSelect={async () => {
+                variant="destructive"
+                onClick={async () => {
                   await logout();
                 }}
               >
