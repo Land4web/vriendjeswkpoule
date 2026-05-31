@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import WedstrijdenView from "./wedstrijden-view";
 
 export const dynamic = "force-dynamic";
@@ -41,12 +42,16 @@ export default async function WedstrijdenPage() {
   return (
     <div className="space-y-5">
       <h1 className="text-2xl font-bold">Wedstrijden</h1>
-      <WedstrijdenView
-        matches={matches ?? []}
-        teamsMap={teamsMap}
-        predMap={predMap}
-        groups={groups}
-      />
+      <Card>
+        <CardContent className="pt-5">
+          <WedstrijdenView
+            matches={matches ?? []}
+            teamsMap={teamsMap}
+            predMap={predMap}
+            groups={groups}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 }
