@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-export const FROM_EMAIL = "WK Poule 2026 <noreply@wkpoule.nl>";
+export const FROM_EMAIL = "Vriendjes WK Poule 2026 <noreply@vriendjeswkpoule.nl>";
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
 // Lazy instantiatie — Resend vereist een geldige API key bij constructie
