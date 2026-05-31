@@ -25,13 +25,9 @@ export default function AuthLayout({
       <div className="relative z-10 flex flex-col items-center gap-6 w-full max-w-sm">
         {/* Logo */}
         <div className="flex flex-col items-center gap-3 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur text-4xl shadow-lg border border-white/20">
-            ⚽
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">Vriendjes WK Poule 2026</h1>
-            <p className="text-sm text-white/70 mt-0.5">FIFA World Cup — VS / Canada / Mexico</p>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="De vriendjes WK poule 2026" className="h-28 w-auto drop-shadow-lg" />
+          <p className="text-sm text-white/70">FIFA World Cup — VS / Canada / Mexico</p>
         </div>
 
         {children}

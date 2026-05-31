@@ -23,8 +23,7 @@ export function invitationEmail(params: {
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f9fafb; margin: 0; padding: 24px;">
   <div style="max-width: 480px; margin: 0 auto; background: white; border-radius: 12px; padding: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
     <div style="text-align: center; margin-bottom: 32px;">
-      <div style="display: inline-block; width: 56px; height: 56px; background: #1e3a5f; border-radius: 50%; line-height: 56px; font-size: 28px; margin-bottom: 16px;">⚽</div>
-      <h1 style="margin: 0; font-size: 22px; font-weight: 700; color: #0a0a0a;">De vriendjes WK poule 2026</h1>
+      <img src="https://vriendjeswkpoule.nl/logo.png" alt="De vriendjes WK poule 2026" width="160" style="height: auto; margin-bottom: 8px;" />
       <p style="margin: 4px 0 0; color: #6b7280; font-size: 14px;">FIFA World Cup — VS / Canada / Mexico</p>
     </div>
 
