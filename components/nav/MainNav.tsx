@@ -2,14 +2,8 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { logout } from "@/app/(auth)/login/actions";
 import { cn } from "@/lib/utils";
@@ -31,6 +25,9 @@ const navItems = [
 export default function MainNav({ profile }: { profile: Profile | null }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const initials = (profile?.full_name ?? "??")
     .split(" ")
     .map((n) => n[0])
@@ -39,6 +36,16 @@ export default function MainNav({ profile }: { profile: Profile | null }) {
     .toUpperCase();
 
   const isAdmin = profile?.role === "admin";
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-primary/20 bg-primary text-primary-foreground backdrop-blur">
@@ -112,39 +119,49 @@ export default function MainNav({ profile }: { profile: Profile | null }) {
           </Sheet>
 
           {/* User menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="inline-flex h-8 w-8 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 hover:bg-white/10">
+          <div ref={menuRef} className="relative">
+            <button
+              onClick={() => setMenuOpen((o) => !o)}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+              aria-label="Gebruikersmenu"
+            >
               <Avatar className="h-8 w-8">
-                <AvatarFallback className="bg-primary/20 text-primary text-xs font-semibold">
+                <AvatarFallback className="bg-white/20 text-white text-xs font-semibold">
                   {initials}
                 </AvatarFallback>
               </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <div className="px-2 py-1.5">
-                <p className="text-sm font-medium">{profile?.full_name}</p>
-                <p className="text-xs text-muted-foreground">@{profile?.username}</p>
+            </button>
+
+            {menuOpen && (
+              <div className="absolute right-0 top-10 z-50 w-48 rounded-lg bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 py-1">
+                <div className="px-3 py-2 border-b border-border">
+                  <p className="text-sm font-medium">{profile?.full_name}</p>
+                  <p className="text-xs text-muted-foreground">@{profile?.username}</p>
+                </div>
+                <button
+                  className="w-full text-left px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                  onClick={() => { setMenuOpen(false); router.push("/profiel"); }}
+                >
+                  Profiel
+                </button>
+                {isAdmin && (
+                  <button
+                    className="w-full text-left px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                    onClick={() => { setMenuOpen(false); router.push("/admin"); }}
+                  >
+                    Beheer
+                  </button>
+                )}
+                <div className="my-1 h-px bg-border" />
+                <button
+                  className="w-full text-left px-3 py-2 text-sm text-destructive hover:bg-destructive/10 transition-colors"
+                  onClick={async () => { setMenuOpen(false); await logout(); }}
+                >
+                  Uitloggen
+                </button>
               </div>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => router.push("/profiel")}>
-                Profiel
-              </DropdownMenuItem>
-              {isAdmin && (
-                <DropdownMenuItem onClick={() => router.push("/admin")}>
-                  Beheer
-                </DropdownMenuItem>
-              )}
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                variant="destructive"
-                onClick={async () => {
-                  await logout();
-                }}
-              >
-                Uitloggen
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            )}
+          </div>
         </div>
       </div>
     </header>
