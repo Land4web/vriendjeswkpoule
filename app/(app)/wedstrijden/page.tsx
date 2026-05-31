@@ -39,8 +39,8 @@ export default async function WedstrijdenPage() {
   )].sort();
 
   return (
-    <div className="space-y-5 bg-primary rounded-2xl p-5 -mx-4 sm:-mx-6">
-      <h1 className="text-2xl font-bold text-white">Wedstrijden</h1>
+    <div className="space-y-5">
+      <h1 className="text-2xl font-bold">Wedstrijden</h1>
       <WedstrijdenView
         matches={matches ?? []}
         teamsMap={teamsMap}

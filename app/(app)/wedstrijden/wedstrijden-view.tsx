@@ -39,10 +39,10 @@ function MatchCard({ match, team1, team2, pred }: {
 
   return (
     <Link href={`/wedstrijden/${match.id}`}>
-      <div className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/10 p-4 hover:bg-white/15 transition-colors">
+      <div className="flex items-center gap-4 rounded-md border p-3 hover:bg-muted/50 transition-colors">
         {/* Thuis */}
         <div className="flex-1 flex items-center justify-end gap-2 min-w-0">
-          <span className="text-sm font-semibold truncate text-right text-white">{team1?.name ?? "?"}</span>
+          <span className="text-sm font-medium truncate text-right">{team1?.name ?? "?"}</span>
           {team1?.flag_url && (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={team1.flag_url} alt="" className="h-5 w-7 object-cover rounded-sm shrink-0" />
@@ -53,17 +53,17 @@ function MatchCard({ match, team1, team2, pred }: {
         <div className="flex flex-col items-center shrink-0 w-20">
           {isFinished || isLive ? (
             <>
-              <span className={cn("text-lg font-bold tabular-nums", isLive ? "text-yellow-400" : "text-white")}>
+              <span className={cn("text-lg font-bold tabular-nums", isLive ? "text-yellow-500" : "text-foreground")}>
                 {match.home_score ?? 0} – {match.away_score ?? 0}
               </span>
-              {isLive && <span className="text-xs text-yellow-400 font-medium">LIVE</span>}
+              {isLive && <span className="text-xs font-semibold text-yellow-500">LIVE</span>}
             </>
           ) : (
             <>
-              <span className="text-sm font-semibold text-white/80">
+              <span className="text-sm font-semibold text-foreground">
                 {new Date(match.scheduled_at).toLocaleTimeString("nl-NL", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Amsterdam" })}
               </span>
-              <span className="text-xs text-white/60">
+              <span className="text-xs text-muted-foreground">
                 {new Date(match.scheduled_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short", timeZone: "Europe/Amsterdam" })}
               </span>
             </>
@@ -77,7 +77,7 @@ function MatchCard({ match, team1, team2, pred }: {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={team2.flag_url} alt="" className="h-5 w-7 object-cover rounded-sm shrink-0" />
           )}
-          <span className="text-sm font-semibold truncate text-white">{team2?.name ?? "?"}</span>
+          <span className="text-sm font-medium truncate">{team2?.name ?? "?"}</span>
         </div>
 
         {/* Voorspelling */}
@@ -121,7 +121,7 @@ export default function WedstrijdenView({ matches, teamsMap, predMap, groups }: 
               "px-3 py-1.5 rounded-full text-sm font-medium transition-colors border",
               selected === btn.key
                 ? "bg-primary text-white border-primary"
-                : "bg-primary/80 text-white border-primary/60 hover:bg-primary"
+                : "bg-background text-foreground border-border hover:bg-muted"
             )}
           >
             {btn.label}
@@ -137,8 +137,8 @@ export default function WedstrijdenView({ matches, teamsMap, predMap, groups }: 
             if (stageMatches.length === 0) return null;
             return (
               <div key={stage}>
-                <h2 className="text-sm font-semibold text-white/70 mb-3">{getStageLabel(stage)}</h2>
-                <div className="space-y-3">
+                <h2 className="text-sm font-semibold text-muted-foreground mb-3">{getStageLabel(stage)}</h2>
+                <div className="space-y-2">
                   {stageMatches.map((m) => (
                     <MatchCard
                       key={m.id}
@@ -157,7 +157,7 @@ export default function WedstrijdenView({ matches, teamsMap, predMap, groups }: 
           )}
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-2">
           {groupMatches
             .filter((m) => `groep-${m.group_name}` === selected)
             .map((m) => (
