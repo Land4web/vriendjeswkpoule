@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Inloggen",
+  title: "Inloggen — Vriendjes WK Poule 2026",
 };
 
 export default function AuthLayout({
@@ -10,15 +10,32 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 px-4 py-12">
-      <div className="mb-8 flex flex-col items-center gap-2 text-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-2xl text-primary-foreground">
-          ⚽
+    <div
+      className="relative flex min-h-screen flex-col items-center justify-center px-4 py-12"
+      style={{
+        backgroundImage: "url('/login-bg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Donker overlay */}
+      <div className="absolute inset-0 bg-black/55" />
+
+      {/* Inhoud */}
+      <div className="relative z-10 flex flex-col items-center gap-6 w-full max-w-sm">
+        {/* Logo */}
+        <div className="flex flex-col items-center gap-3 text-center">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur text-4xl shadow-lg border border-white/20">
+            ⚽
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-white tracking-tight">Vriendjes WK Poule 2026</h1>
+            <p className="text-sm text-white/70 mt-0.5">FIFA World Cup — VS / Canada / Mexico</p>
+          </div>
         </div>
-        <h1 className="text-2xl font-bold tracking-tight">WK Poule 2026</h1>
-        <p className="text-sm text-muted-foreground">FIFA World Cup — VS / Canada / Mexico</p>
+
+        {children}
       </div>
-      {children}
     </div>
   );
 }
