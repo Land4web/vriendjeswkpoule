@@ -48,16 +48,11 @@ export default function MainNav({ profile }: { profile: Profile | null }) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-primary/20 bg-primary text-primary-foreground backdrop-blur">
-      <div className="container mx-auto max-w-5xl px-4 flex h-28 items-center gap-4">
-        {/* Logo */}
-        <Link href="/dashboard" className="flex items-center gap-2 shrink-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="De vriendjes WK poule 2026" className="h-[100px] w-auto" />
-        </Link>
+    <header className="sticky top-0 z-50 bg-primary text-primary-foreground">
+      <div className="relative container mx-auto max-w-5xl px-4 flex h-16 items-center">
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1 flex-1">
+        {/* Links: desktop nav */}
+        <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -74,11 +69,22 @@ export default function MainNav({ profile }: { profile: Profile | null }) {
           ))}
         </nav>
 
+        {/* Midden: logo — absoluut gecentreerd, mag overlappen */}
+        <Link
+          href="/dashboard"
+          className="absolute left-1/2 -translate-x-1/2 flex items-center"
+          style={{ top: "-20px" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="De vriendjes WK poule 2026" className="h-[100px] w-auto drop-shadow-lg" />
+        </Link>
+
+        {/* Rechts: profiel + mobiel hamburger */}
         <div className="flex items-center gap-2 ml-auto">
-          {/* Mobile nav */}
+          {/* Mobile hamburger */}
           <Sheet>
             <SheetTrigger
-              className="md:hidden inline-flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white focus-visible:outline-none"
+              className="md:hidden inline-flex h-8 w-8 items-center justify-center rounded-md text-white/80 hover:bg-white/10 hover:text-white focus-visible:outline-none"
               aria-label="Menu openen"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
