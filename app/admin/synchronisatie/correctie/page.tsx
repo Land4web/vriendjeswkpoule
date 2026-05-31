@@ -9,9 +9,8 @@ export default async function CorrectiePage() {
   const { data: matches } = await supabase
     .from("matches")
     .select("id, scheduled_at, status, home_score, away_score, home_team:teams!home_team_id(name), away_team:teams!away_team_id(name)")
-    .in("status", ["FINISHED", "PAUSED", "IN_PLAY"])
-    .order("scheduled_at", { ascending: false })
-    .limit(50);
+    .order("scheduled_at", { ascending: true })
+    .limit(200);
 
   const matchOptions = (matches ?? []).map((m) => ({
     id: m.id,
