@@ -49,11 +49,11 @@ export default function MainNav({ profile }: { profile: Profile | null }) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-primary/20 bg-primary text-primary-foreground backdrop-blur">
-      <div className="container mx-auto max-w-5xl px-4 flex h-14 items-center gap-4">
+      <div className="container mx-auto max-w-5xl px-4 flex h-28 items-center gap-4">
         {/* Logo */}
         <Link href="/dashboard" className="flex items-center gap-2 shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="De vriendjes WK poule 2026" className="h-9 w-auto" />
+          <img src="/logo.png" alt="De vriendjes WK poule 2026" className="h-[100px] w-auto" />
         </Link>
 
         {/* Desktop nav */}
