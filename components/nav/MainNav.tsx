@@ -1,0 +1,152 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { logout } from "@/app/(auth)/login/actions";
+import { cn } from "@/lib/utils";
+
+interface Profile {
+  username: string;
+  full_name: string;
+  role: string;
+  avatar_url: string | null;
+}
+
+const navItems = [
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/wedstrijden", label: "Wedstrijden" },
+  { href: "/toernooi", label: "Toernooi" },
+  { href: "/ranglijst", label: "Ranglijst" },
+];
+
+export default function MainNav({ profile }: { profile: Profile | null }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const initials = (profile?.full_name ?? "??")
+    .split(" ")
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+  const isAdmin = profile?.role === "admin";
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-primary/20 bg-primary text-primary-foreground backdrop-blur">
+      <div className="container mx-auto max-w-5xl px-4 flex h-14 items-center gap-4">
+        {/* Logo */}
+        <Link href="/dashboard" className="flex items-center gap-2 font-bold text-secondary shrink-0">
+          <span className="text-xl">⚽</span>
+          <span className="hidden sm:block text-sm font-semibold">Vriendjes WK Poule 2026</span>
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-1 flex-1">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "text-sm px-3 py-1.5 rounded-md transition-colors",
+                pathname.startsWith(item.href)
+                  ? "bg-white/20 text-white font-medium"
+                  : "text-white/70 hover:text-white hover:bg-white/10"
+              )}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2 ml-auto">
+          {/* Mobile nav */}
+          <Sheet>
+            <SheetTrigger
+              className="md:hidden inline-flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white focus-visible:outline-none"
+              aria-label="Menu openen"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-64 pt-10">
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "text-sm px-3 py-2 rounded-md transition-colors",
+                      pathname.startsWith(item.href)
+                        ? "bg-primary/10 text-primary font-medium"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                {isAdmin && (
+                  <>
+                    <div className="my-1 h-px bg-border" />
+                    <Link
+                      href="/admin"
+                      className="text-sm px-3 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
+                    >
+                      Beheer
+                    </Link>
+                  </>
+                )}
+              </nav>
+            </SheetContent>
+          </Sheet>
+
+          {/* User menu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger className="inline-flex h-8 w-8 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 hover:bg-white/10">
+              <Avatar className="h-8 w-8">
+                <AvatarFallback className="bg-primary/20 text-primary text-xs font-semibold">
+                  {initials}
+                </AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <div className="px-2 py-1.5">
+                <p className="text-sm font-medium">{profile?.full_name}</p>
+                <p className="text-xs text-muted-foreground">@{profile?.username}</p>
+              </div>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onSelect={() => router.push("/profiel")}>
+                Profiel
+              </DropdownMenuItem>
+              {isAdmin && (
+                <DropdownMenuItem onSelect={() => router.push("/admin")}>
+                  Beheer
+                </DropdownMenuItem>
+              )}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="text-destructive focus:text-destructive"
+                onSelect={async () => {
+                  await logout();
+                }}
+              >
+                Uitloggen
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+    </header>
+  );
+}
