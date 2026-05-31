@@ -8,10 +8,10 @@ export function invitationEmail(params: {
 }) {
   const url = `${APP_URL}/registreren?token=${params.token}`;
   const paymentBlock = params.paymentUrl ? `
-    <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 20px; margin: 24px 0; text-align: center;">
-      <p style="margin: 0 0 4px; font-size: 15px; font-weight: 600; color: #92400e;">💰 Inleg betalen</p>
-      <p style="margin: 0 0 16px; font-size: 14px; color: #78350f;">Vergeet niet de inleg te betalen om mee te doen!</p>
-      <a href="${params.paymentUrl}" style="display: inline-block; background: #f59e0b; color: white; font-weight: 600; font-size: 15px; padding: 12px 28px; border-radius: 8px; text-decoration: none;">
+    <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 24px 28px; margin: 24px 0; text-align: center;">
+      <p style="margin: 0 0 6px; font-size: 16px; font-weight: 700; color: #92400e;">💰 Inleg betalen</p>
+      <p style="margin: 0 0 20px; font-size: 14px; color: #78350f; line-height: 1.5;">Vergeet niet de inleg te betalen om mee te doen!</p>
+      <a href="${params.paymentUrl}" style="display: inline-block; background: #f59e0b; color: white; font-weight: 700; font-size: 16px; padding: 16px 40px; border-radius: 10px; text-decoration: none; letter-spacing: 0.01em; box-shadow: 0 2px 8px rgba(245,158,11,0.35);">
         Inleg betalen
       </a>
     </div>` : "";
@@ -37,7 +37,7 @@ export function invitationEmail(params: {
     </p>
 
     <div style="text-align: center; margin: 32px 0;">
-      <a href="${url}" style="display: inline-block; background: #1e3a5f; color: white; font-weight: 600; font-size: 16px; padding: 14px 32px; border-radius: 8px; text-decoration: none;">
+      <a href="${url}" style="display: inline-block; background: #1e3a5f; color: white; font-weight: 700; font-size: 16px; padding: 16px 40px; border-radius: 10px; text-decoration: none; letter-spacing: 0.01em; box-shadow: 0 2px 8px rgba(30,58,95,0.35);">
         Account aanmaken
       </a>
     </div>
