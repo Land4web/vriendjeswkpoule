@@ -8,7 +8,8 @@
 
 html, body {
   font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 @custom-variant dark (&:is(.dark *));
