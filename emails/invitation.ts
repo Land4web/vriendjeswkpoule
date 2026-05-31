@@ -33,7 +33,7 @@ export function invitationEmail(params: {
     </p>
 
     <p style="color: #374151; font-size: 16px; line-height: 1.6;">
-      Maak je account aan en begin met voorspellen — de beste voorspeller wint!
+      Maak je account aan en begin direct met voorspellen. Heel veel weinig succes!
     </p>
 
     <div style="text-align: center; margin: 32px 0;">
@@ -58,7 +58,7 @@ export function invitationEmail(params: {
 </html>`;
 
   const paymentText = params.paymentUrl ? `\n\n💰 Inleg betalen: ${params.paymentUrl}` : "";
-  const text = `Je bent uitgenodigd voor De vriendjes WK poule 2026!\n\n${params.invitedByName} heeft je uitgenodigd.\n\nAccount aanmaken: ${url}${paymentText}\n\nDeze uitnodiging is 7 dagen geldig.`;
+  const text = `Je bent uitgenodigd voor de Vriendjes WK poule 2026!\n\n${params.invitedByName} heeft je uitgenodigd.\n\nMaak je account aan en begin direct met voorspellen. Heel veel weinig succes!\n\nAccount aanmaken: ${url}${paymentText}\n\nDeze uitnodiging is 7 dagen geldig.`;
 
-  return { html, text, subject: "Je bent uitgenodigd voor de De vriendjes WK poule 2026! ⚽" };
+  return { html, text, subject: "Je bent uitgenodigd voor de Vriendjes WK poule 2026!" };
 }
